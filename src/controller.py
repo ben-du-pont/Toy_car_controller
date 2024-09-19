@@ -53,7 +53,7 @@ class PurePursuitController:
     
 
 class PIDController:
-    def __init__(self, kp, ki, kd, dt):
+    def __init__(self, kp, ki, kd, dt, target_speed = 5):
         """
         Initializes the PID Controller with gains and timestep.
         :param kp: Proportional gain.
@@ -65,6 +65,8 @@ class PIDController:
         self.ki = ki
         self.kd = kd
         self.dt = dt
+        self.target_speed = target_speed
+        
         self.previous_error = 0
         self.integral = 0
 

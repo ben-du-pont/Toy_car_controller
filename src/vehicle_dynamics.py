@@ -54,6 +54,9 @@ class Vehicle:
         epsilon1 = 8.5
         epsilon2 = 5.1
 
+        if v_x < 0.2:
+            return 0, 0, 0, 0 # Avoid the bad slip angle calculation when the vehicle is slow
+        
         alpha_FL = np.arctan((v_y + r * self.lf) * (v_x - 0.5 * self.Ef * r) * np.tanh(k1 * (v_x - 0.5 * self.Ef * r)) / 
                              ((v_x - 0.5 * self.Ef * r)**2 + epsilon1)) - delta
         
@@ -103,7 +106,7 @@ class Vehicle:
         Fy_rr = self.pacejka_model(alpha_rr, Fz_rr)
         
         # Simplified longitudinal force model (proportional to throttle)
-        Fx_fl = Fx_fr = Fx_rl = Fx_rr = throttle / 4
+        Fx_fl = Fx_fr = Fx_rl = Fx_rr = throttle*1000 / 4
         
         # Calculate net forces and moment
         Fx_net = (Fx_rl + Fx_rr + Fx_fl * np.cos(steer) + Fx_fr * np.cos(steer) - 

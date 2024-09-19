@@ -309,9 +309,22 @@ class Path:
 
 
     def increment_lap_count(self, x, y):
-        waypoint = self.get_next_waypoint(self, x, y, self.track_params[3], self.track_params[0], self.track_params[1], self.track_params[2])
+        waypoint = self.get_next_waypoint(x, y, self.track_params[3], self.track_params[0], self.track_params[1], self.track_params[2])
+        
         if waypoint > len(self.track_params[0]) - 10 and self.end_phase == False:
-            self.lap_count += 1
-            self.end_phase == True
+            self.end_phase = True
         elif waypoint <= len(self.track_params[0]) - 10:
-            self.end_phase == False
+            if self.end_phase == True:
+                self.lap_count += 1
+            self.end_phase = False
+
+
+    def check_collision(self, x, y):
+        distance_left, distance_right = self.calculate_distance_to_boundaries(x, y, self.track_params[1], self.track_params[2])
+        track_with, _ = self.get_track_width(x, y, self.track_params[1], self.track_params[2])
+
+        if distance_left > track_with or distance_right > track_with:
+            return True
+        else:
+            return False
+        
