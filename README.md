@@ -1,6 +1,6 @@
 # Controller tuning activity: PID and Pure Pursuit controller for fastest lap time
 
-## THIS README FILE IS IN PROGRESS
+THIS README FILE IS IN PROGRESS
 
 # To test the code:
 
@@ -8,3 +8,12 @@
 2. Install the requirements from requirements.txt (Might need to check these requirements work for you and I didnt forget any)
 3. Edit the controller parameters in *src/config/controller_params.py*
 4. Run the simulation to visualise the controller performance by running the *src/run.py* file
+
+## Example of the controller performance
+
+### Too fast - collision
+
+![Controller Performance Collision](videos/collision.gif)
+
+## Slower - No collision
+![Controller Performance No Collision](videos/no-collision.gif)
