@@ -1,5 +1,29 @@
 import numpy as np
 
+from CONTROLLER_PARAMS import KP, KI, KD, TARGET_SPEED, LOOKAHEAD_DISTANCE
+
+class ControllerParams:
+    controller_params = {}
+
+    def __init__(self):
+
+        self.controller_params = {
+            'kp': KP,
+            'ki': KI,
+            'kd': KD,
+            'target_speed': TARGET_SPEED,
+            'pid_min': -20,
+            'pid_max': 20,
+
+            'L': 2.0,
+            'Ld': LOOKAHEAD_DISTANCE,
+            'max_steering_angle': 0.5 # in radians
+        }
+    
+    def get_params(self):
+        return self.controller_params
+
+
 class PurePursuitController:
     def __init__(self, wheelbase_length, lookahead_distance, max_steering_angle=0.45):
         """

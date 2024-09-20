@@ -1,7 +1,6 @@
 import matplotlib.pyplot as plt
 
 
-from config.controller_params import ControllerParams 
 from config.vehicle_params import VehicleParams
 
 from include.path import Path
@@ -9,7 +8,7 @@ from include.render import Renderer
 from include.physics_simulation import Simulator
 
 from vehicle_dynamics import Vehicle
-from controller import PurePursuitController, PIDController
+from controller import ControllerParams, PurePursuitController, PIDController
 
 
 def main():
