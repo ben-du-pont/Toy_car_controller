@@ -1,15 +1,9 @@
-from csv import reader
-from dataclasses import dataclass
-from math import radians
 import csv
 import numpy as np
 import os
-from matplotlib import pyplot as plt
-from matplotlib.animation import FuncAnimation
+
 from scipy.interpolate import make_interp_spline
-from shapely import LineString
-from shapely.geometry import Polygon
-from shapely.geometry import Point
+from shapely.geometry import LineString, Polygon, Point
 
 from include.cubic_spline_interpolator import generate_cubic_spline
 
@@ -28,7 +22,6 @@ class Path:
 
         # process the track csv file
         self.track_params = self.process_track(path, 'clockwise')
-        
 
         ds = 0.05
         # column 1 is x, column 2 is y
@@ -235,6 +228,7 @@ class Path:
         return track_width, intersection_line
     
     def get_next_waypoint(self, position_x, position_y, center_line, structured_waypoints, blue_line, yellow_line):
+        
         car_point = Point(position_x, position_y)
         center_line = LineString(center_line)
         try:
@@ -262,11 +256,16 @@ class Path:
 
 
     def get_a_waypoint(self, position_x, position_y, center_line, structured_waypoints, blue_line, yellow_line, lookahead_distance):
+        
         car_point = Point(position_x, position_y)
         center_line = LineString(center_line)
+
         # Find the closest point on the center line to the car
-        closest_point = center_line.interpolate(center_line.project(car_point))
-        
+        try:
+            closest_point = center_line.interpolate(center_line.project(car_point))
+        except ValueError as e:
+            print("Error:", e)
+            return 0
         # Find the closest waypoint to the closest point on the center line
         closest_waypoint = min(structured_waypoints, key=lambda x: Point(x['x'], x['y']).distance(closest_point))
         

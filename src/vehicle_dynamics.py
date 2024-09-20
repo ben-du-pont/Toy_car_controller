@@ -32,15 +32,15 @@ class Vehicle:
         
         # Initial state
         self.state = {
-            'x': 0,
-            'y': 0,
-            'yaw': 0,
+            'x': 0.0,
+            'y': 0.0,
+            'yaw': 0.0,
             'v_x': params['initial_velocity'],
-            'v_y': 0,
-            'r': 0,
-            'a_x': 0,
-            'a_y': 0,
-            'steer': 0
+            'v_y': 0.0,
+            'r': 0.0,
+            'a_x': 0.0,
+            'a_y': 0.0,
+            'steer': 0.0
         }
     
     def pacejka_model(self, alpha, Fz):

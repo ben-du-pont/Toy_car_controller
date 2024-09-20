@@ -1,22 +1,15 @@
-import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib
-import matplotlib.patches as patches
-from matplotlib.animation import FuncAnimation, PillowWriter
+
 
 from config.controller_params import ControllerParams 
 from config.vehicle_params import VehicleParams
 
 from include.path import Path
 from include.render import Renderer
+from include.physics_simulation import Simulator
 
 from vehicle_dynamics import Vehicle
 from controller import PurePursuitController, PIDController
-
-
-
-
-matplotlib.use('TkAgg')
 
 
 def main():
@@ -25,7 +18,8 @@ def main():
     controller_params = ControllerParams().get_params()
     vehicle = Vehicle(vehicle_params)
     
-    dt = 0.05  # Time step
+    sim_dt = 0.1  # Simulation time step
+    render_dt = 0.1  # Rendering time step
 
     # Pure pursuit controller parameters
     L = controller_params['L']
@@ -38,12 +32,35 @@ def main():
     target_speed = controller_params['target_speed']
     
     pp_controller = PurePursuitController(L, lookahead_distance)
-    pid_controller = PIDController(kp, kd, ki, dt, target_speed)
+    pid_controller = PIDController(kp, kd, ki, sim_dt, target_speed)
 
-    renderer = Renderer(vehicle, path, pp_controller, pid_controller, dt)
+
     
-    renderer.start_animation()
+    # Create simulator and renderer
+    simulator = Simulator(vehicle, path, pp_controller, pid_controller, sim_dt)
+    renderer = Renderer(simulator)
 
+    accumulated_sim_time = 0.0  # Virtual time accumulator
+
+    plt.ion()  # Enable interactive mode for real-time plotting
+
+    try:
+        while True:
+            # Simulate as many steps as possible until the render time interval is reached
+            while accumulated_sim_time < render_dt:
+                simulator.step()  # Run one simulation step
+                accumulated_sim_time += sim_dt  # Accumulate simulation time
+
+            # Reset accumulator and render the frame
+            accumulated_sim_time -= render_dt  # Allow for fractional steps
+            renderer.render()
+            if simulator.path.lap_count > 1 and simulator.lap_time > 10:
+                break
+
+    except KeyboardInterrupt:
+        pass
+
+    plt.ioff()  # Disable interactive mode
 
 if __name__ == '__main__':
     main()
