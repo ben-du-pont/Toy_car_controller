@@ -55,7 +55,7 @@ class Vehicle:
         epsilon2 = 5.1
 
         if v_x < 0.2:
-            return 0, 0, 0, 0 # Avoid the bad slip angle calculation when the vehicle is slow
+            return - delta, delta, 0, 0 # Avoid the bad slip angle calculation when the vehicle is slow
         
         alpha_FL = np.arctan((v_y + r * self.lf) * (v_x - 0.5 * self.Ef * r) * np.tanh(k1 * (v_x - 0.5 * self.Ef * r)) / 
                              ((v_x - 0.5 * self.Ef * r)**2 + epsilon1)) - delta
@@ -139,7 +139,7 @@ class Vehicle:
     def update(self, throttle, steering_target, dt):
         state_values = list(self.state.values())
         new_state_values = odeint(self.vehicle_dynamics, state_values, [0, dt], 
-                                  args=(throttle, steering_target))
+                                  args=(throttle, steering_target), rtol=1e-3, atol=1e-3, mxstep=5000)
         
         new_state = dict(zip(self.state.keys(), new_state_values[-1]))
         self.state = new_state

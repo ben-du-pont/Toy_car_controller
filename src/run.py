@@ -53,7 +53,7 @@ def main():
             # Reset accumulator and render the frame
             accumulated_sim_time -= render_dt  # Allow for fractional steps
             renderer.render()
-            if simulator.path.lap_count > 1 and simulator.lap_time > 10:
+            if simulator.path.lap_count > 1 and simulator.lap_time > 5:
                 break
 
     except KeyboardInterrupt:

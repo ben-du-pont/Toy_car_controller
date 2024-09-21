@@ -28,8 +28,8 @@ class Renderer:
 
         
 
-        self.waypoint, = self.ax.plot([], [], 'rx')
-        self.waypoint_ahead, = self.ax.plot([], [], 'bo')
+        # self.waypoint, = self.ax.plot([], [], 'rx')
+        self.waypoint_ahead, = self.ax.plot([], [], 'rx', markersize=10)
 
         # Initialize car wheels
         self.wheels = []
@@ -80,15 +80,15 @@ class Renderer:
             wheel.angle = angle
             
         # Find current and ahead waypoints
-        waypoint_idx = self.path.get_next_waypoint(state['x'], state['y'], 
-                                                   self.path.track_params[3], 
-                                                   self.path.track_params[0],
-                                                   self.path.track_params[1],
-                                                   self.path.track_params[2])
-        waypoint_x, waypoint_y = self.path.track_params[0][self.path.track_params[0]['index'] == waypoint_idx]['x'][0], \
-                                 self.path.track_params[0][self.path.track_params[0]['index'] == waypoint_idx]['y'][0]
-        self.waypoint.set_xdata([waypoint_x])
-        self.waypoint.set_ydata([waypoint_y])
+        # waypoint_idx = self.path.get_next_waypoint(state['x'], state['y'], 
+        #                                            self.path.track_params[3], 
+        #                                            self.path.track_params[0],
+        #                                            self.path.track_params[1],
+        #                                            self.path.track_params[2])
+        # waypoint_x, waypoint_y = self.path.track_params[0][self.path.track_params[0]['index'] == waypoint_idx]['x'][0], \
+        #                          self.path.track_params[0][self.path.track_params[0]['index'] == waypoint_idx]['y'][0]
+        # self.waypoint.set_xdata([waypoint_x])
+        # self.waypoint.set_ydata([waypoint_y])
 
         waypoint_ahead_idx = self.path.get_a_waypoint(state['x'], state['y'], 
                                                       self.path.track_params[3], 

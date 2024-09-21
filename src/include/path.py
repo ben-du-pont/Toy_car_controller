@@ -284,7 +284,20 @@ class Path:
             if accumulated_distance < lookahead_distance:
                 current_index += 1
             target_index = current_index
-
+            
+        # If the final waypoint is less than the lookahead distance away, wrap around and start from the beginning
+        if accumulated_distance < lookahead_distance:
+            target_index = 0
+            current_index = 0
+            while accumulated_distance < lookahead_distance and current_index < len(structured_waypoints) - 1:
+                current_waypoint = Point(structured_waypoints[current_index]['x'], structured_waypoints[current_index]['y'])
+                next_waypoint = Point(structured_waypoints[current_index + 1]['x'], structured_waypoints[current_index + 1]['y'])
+                segment_distance = current_waypoint.distance(next_waypoint)
+                accumulated_distance += segment_distance
+                
+                if accumulated_distance < lookahead_distance:
+                    current_index += 1
+                target_index = current_index
         
         return target_index
     

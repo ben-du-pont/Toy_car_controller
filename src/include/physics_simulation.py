@@ -67,7 +67,7 @@ class Simulator:
             elif self.path.lap_count > 1:
 
                 if self.vehicle.state['v_x'] > 0.5:
-                    self.pid_controller.target_speed = -5
+                    self.pid_controller.target_speed = -1
                 else:
                     self.pid_controller.target_speed = 0
                 
