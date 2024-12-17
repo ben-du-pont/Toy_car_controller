@@ -1,16 +1,6 @@
-# Duckietown Activity: Toy Car Controller
+# Toy Car Controller
 
-## Welcome to the 2024 ETH Duckietown Class!
-
-This activity is designed as a self-assessment tool to help you gauge your comfort level with the necessary tools for an engaging and successful semester in the Duckietown course. While your results will not be the primary factor in the selection process, they may serve as a tie-breaker if needed.
-
----
-
-## Task Overview
-
-### Objective
-
-You will work with a simulated toy car and aim to achieve the best lap time possible on a designated track. To enhance the car's performance, you will be able to adjust the controller parameters, optimizing the tuning to reach faster speeds while ensuring the car stays on track.
+This repository provides a small simulation environment based a four wheel model of a car and a Pacejka tire model. It also contains the implementation of a PID controller for constant longitudinal speed tracking and a Pure Pursuit controller for the lateral control of the car, using the steering angle.
 
 ---
 
@@ -18,10 +8,6 @@ You will work with a simulated toy car and aim to achieve the best lap time poss
 
 The configuration file for the PID and Pure Pursuit controllers can be found at:
 src/CONTROLLER_PARAMS.py
-
-### TODO:
-
-![Configuration File Screenshot](path/to/screenshot.png)
 
 ### Understanding the Controllers
 
