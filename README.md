@@ -56,8 +56,3 @@ src/CONTROLLER_PARAMS.py
 ## Slower - No collision
 ![Controller Performance No Collision](videos/no-collision.gif)
 
-
-
-## Conclusion
-
-This activity not only serves as a self-assessment but also provides valuable insights into your understanding of control systems and simulation environments. Take your time to experiment with different parameters and refine your strategies for optimal performance. Good luck!
